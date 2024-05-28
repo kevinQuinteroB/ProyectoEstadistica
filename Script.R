@@ -13,4 +13,6 @@ filas_vacias <- data %>% filter(CURSO_DE_VIDA == "ERROR: #N/A")
 
 data_clean <- data %>% filter(LATITUD != "xx.xxxx" & CURSO_DE_VIDA != "ERROR: #N/A")
 
-
+Datos_Armas <- data_clean$ARMAS_MEDIOS
+tabla_frecuencias_armas <- table(Datos_Armas)
+df_frecuencias_armas <- as.data.frame(tabla_frecuencias_armas)
