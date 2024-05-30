@@ -84,3 +84,177 @@ ggplot(df_armas_moviles_agresor_clean, aes(x = "", y = FRECUENCIA, fill = ARMAS_
   theme(legend.position = "right") +
   geom_text(aes(label = paste0(round(FRECUENCIA / sum(FRECUENCIA) * 100, 1), "%")),
             position = position_stack(vjust = 0.5), color = "black", size = 3.5)
+
+#2. Cuales son los sectores en los cuales se concentra una mayor cantidad de criminalidad
+
+#3. Como van los indices de delitos segun cada año?
+tabla_frecuencias_delitos_año <- table(data_delincuentes$ANO, data_delincuentes$CONDUCTA)
+df_frecuencias_delitos_año <- as.data.frame(tabla_frecuencias_delitos_año)
+  # 3.1 Casos de violencia Sexual
+df_frecuencias_delitos_año_ACCESO_CARNAL_ABUSIVO_CON_MENOR_DE_14_AÑOS <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "ACCESO CARNAL ABUSIVO CON MENOR DE 14 AÑOS")
+df_frecuencias_delitos_año_ACCESO_CARNAL_VIOLENTO <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "ACCESO CARNAL VIOLENTO")
+df_frecuencias_delitos_año_ACOSO_SEXUAL <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "ACOSO SEXUAL")
+df_frecuencias_delitos_año_ACTOS_SEXUALES_CON_MENOR_DE_14_AÑOSL <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "ACTOS SEXUALES CON MENOR DE 14 AÑOS")
+df_frecuencias_delitos_año_sexuales <- bind_rows(df_frecuencias_delitos_año_ACTOS_SEXUALES_CON_MENOR_DE_14_AÑOSL, df_frecuencias_delitos_año_ACOSO_SEXUAL, df_frecuencias_delitos_año_ACCESO_CARNAL_VIOLENTO, df_frecuencias_delitos_año_ACCESO_CARNAL_ABUSIVO_CON_MENOR_DE_14_AÑOS)
+
+ggplot(df_frecuencias_delitos_año_sexuales, aes(x = Var1, y = Freq, color = Var2, group = Var2)) +
+  geom_line() +        
+  geom_point() +        
+  labs(title = "Tendencia de Delitos sexuales a lo Largo del Tiempo",
+       x = "Fecha",
+       y = "Número de Delitos",
+       color = "Tipo de Delito") +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    panel.background = element_rect(fill = "white", color = "grey50")
+  )
+
+  #3.2 Casos de violencia
+df_frecuencias_delitos_año_EXTORSIÓN <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "EXTORSIÓN")
+df_frecuencias_delitos_año_FEMINICIDIO <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "FEMINICIDIO")
+df_frecuencias_delitos_año_HOMICIDIO <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HOMICIDIO")
+df_frecuencias_delitos_año_LESIONES_PERSONALES <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "LESIONES PERSONALES")
+df_frecuencias_delitos_año_VIOLENCIA_INTRAFAMILIAR <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "VIOLENCIA INTRAFAMILIAR")
+df_frecuencias_delitos_año_violencia <- bind_rows(df_frecuencias_delitos_año_VIOLENCIA_INTRAFAMILIAR, df_frecuencias_delitos_año_LESIONES_PERSONALES, df_frecuencias_delitos_año_HOMICIDIO, df_frecuencias_delitos_año_FEMINICIDIO, df_frecuencias_delitos_año_EXTORSIÓN)
+
+ggplot(df_frecuencias_delitos_año_violencia, aes(x = Var1, y = Freq, color = Var2, group = Var2)) +
+  geom_line() +        
+  geom_point() +        
+  labs(title = "Tendencia de Delitos de violencia a lo Largo del Tiempo",
+       x = "Fecha",
+       y = "Número de Delitos",
+       color = "Tipo de Delito") +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    panel.background = element_rect(fill = "white", color = "grey50")
+  )
+
+
+  #3.3 Casos de robos
+df_frecuencias_delitos_año_HURTO_A_AUTOMOTORES <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HURTO A AUTOMOTORES")
+df_frecuencias_delitos_año_HURTO_A_ENTIDADES_COMERCIALES <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HURTO A ENTIDADES COMERCIALES")
+df_frecuencias_delitos_año_HURTO_A_MOTOCICLETAS <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HURTO A MOTOCICLETAS")
+df_frecuencias_delitos_año_HURTO_A_PERSONAS <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HURTO A PERSONAS")
+df_frecuencias_delitos_año_HURTO_A_RESIDENCIAS <- df_frecuencias_delitos_año %>% filter(Freq > 0 & Var2 == "HURTO A RESIDENCIAS")
+df_frecuencias_delitos_año_hurto <- bind_rows(df_frecuencias_delitos_año_HURTO_A_RESIDENCIAS, df_frecuencias_delitos_año_HURTO_A_PERSONAS, df_frecuencias_delitos_año_HURTO_A_MOTOCICLETAS, df_frecuencias_delitos_año_HURTO_A_ENTIDADES_COMERCIALES, df_frecuencias_delitos_año_HURTO_A_AUTOMOTORES)
+
+ggplot(df_frecuencias_delitos_año_hurto, aes(x = Var1, y = Freq, color = Var2, group = Var2)) +
+  geom_line() +        
+  geom_point() +        
+  labs(title = "Tendencia de Delitos de Hurto a lo Largo del Tiempo",
+       x = "Fecha",
+       y = "Número de Delitos",
+       color = "Tipo de Delito") +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    panel.background = element_rect(fill = "white", color = "grey50")
+  )
+
+# 4 Cuales son los indices de las personas mas afectadas en los delitos?
+  #4.1 Curso de vida de los afectados 
+tabla_frecuencias_victimas_cursoVida <- table(data_delincuentes$CURSO_DE_VIDA)
+df_frecuencias_victimas_cursoVida <- as.data.frame(tabla_frecuencias_victimas_cursoVida)
+
+df_frecuencias_victimas_cursoVida <- df_frecuencias_victimas_cursoVida %>%
+  mutate(Percentage = paste0(round(Freq / sum(Freq) * 100, 1), "%"),
+         Label = paste(Var1, "(", Percentage, ")"))
+
+ggplot(df_frecuencias_victimas_cursoVida, aes(x = "", y = Freq, fill = Label)) +
+  geom_bar(stat = "identity", width = 1, color = "gray") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Set3", labels = df_frecuencias_victimas_cursoVida$Label) +
+  labs(title = "Curso de vida de las victimas",
+       fill = "Curso de vida") +
+  theme_void() +
+  theme(legend.position = "right")
+
+  # 4.2 Comparacion de generos
+tabla_frecuencias_victimas_genero <- table(data_delincuentes$GENERO)
+df_frecuencias_victimas_genero <- as.data.frame(tabla_frecuencias_victimas_genero)
+
+df_frecuencias_victimas_genero <- df_frecuencias_victimas_genero %>%
+  mutate(Percentage = paste0(round(Freq / sum(Freq) * 100, 1), "%"),
+         Label = paste(Var1, "(", Percentage, ")"))
+
+ggplot(df_frecuencias_victimas_genero, aes(x = "", y = Freq, fill = Label)) +
+  geom_bar(stat = "identity", width = 1, color = "gray") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Set3", labels = df_frecuencias_victimas_genero$Label) +
+  labs(title = "Genero de las victimas",
+       fill = "Genero") +
+  theme_void() +
+  theme(legend.position = "right")
+
+  # Muertes y lesiones segun genero
+tabla_frecuencias_victimas <- table(data_delincuentes$CLASIFICACIONES.DELITO, data_delincuentes$GENERO)
+df_frecuencias_victimas <- as.data.frame(tabla_frecuencias_victimas)
+df_frecuencias_victimas_mujeres <- df_frecuencias_victimas %>% filter(Var2 == "FEMENINO")
+df_frecuencias_victimas_mujeres <- df_frecuencias_victimas_mujeres %>%
+  mutate(Percentage = paste0(round(Freq / sum(Freq) * 100, 1), "%"),
+         Label = paste(Var1, "(", Percentage, ")"))
+
+ggplot(df_frecuencias_victimas_mujeres, aes(x = "", y = Freq, fill = Label)) +
+  geom_bar(stat = "identity", width = 1, color = "gray") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Set3", labels = df_frecuencias_victimas_mujeres$Label) +
+  labs(title = "Clasificacion del estado de las victimas mujeres",
+       fill = "Clasificacion") +
+  theme_void() +
+  theme(legend.position = "right")
+
+
+df_frecuencias_victimas_hombres <- df_frecuencias_victimas %>% filter(Var2 == "MASCULINO")
+df_frecuencias_victimas_hombres <- df_frecuencias_victimas_hombres %>%
+  mutate(Percentage = paste0(round(Freq / sum(Freq) * 100, 1), "%"),
+         Label = paste(Var1, "(", Percentage, ")"))
+
+ggplot(df_frecuencias_victimas_hombres, aes(x = "", y = Freq, fill = Label)) +
+  geom_bar(stat = "identity", width = 1, color = "gray") +
+  coord_polar("y", start = 0) +
+  scale_fill_brewer(palette = "Set3", labels = df_frecuencias_victimas_hombres$Label) +
+  labs(title = "Clasificacion del estado de las victimas hombres",
+       fill = "Clasificacion") +
+  theme_void() +
+  theme(legend.position = "right")
+
+# 5.1 Cuales son los dias en los cuales se presenta el mayor indice de criminalidad
+tabla_frecuencias_dia <- table(data_delincuentes$DIA_SEMANA)
+df_frecuencias_dia <- as.data.frame(tabla_frecuencias_dia)
+
+ggplot(df_frecuencias_dia, aes(x = Var1, y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", color = "black") +
+  geom_text(aes(label = Freq), vjust = -0.5, size = 3.5, color = "black") +
+  labs(title = "Frecuencia de delitos segun el dia de la semana",
+       x = "Dia de la semana",
+       y = "Frecuencia",
+       fill = "Dia de la semana") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3") +
+  theme(
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    panel.background = element_rect(fill = "white", color = "grey50"),
+    legend.position = "none"
+  )
+
+  # Cual es el promedio de asesinatos por dia en los ultimos 5 años registrados?
+tabla_frecuencias_promedio_asesinatos <- table(data_delincuentes$DIA_SEMANA, data_delincuentes$ANO, data_delincuentes$CLASIFICACIONES.DELITO)
+df_frecuencias_promedio_asesinatos <- as.data.frame(tabla_frecuencias_promedio_asesinatos)
+df_frecuencias_promedio_asesinatos <- df_frecuencias_promedio_asesinatos %>% filter (Var3 == "LESIONES FATALES")
+df_frecuencias_promedio_asesinatos_2017 <- df_frecuencias_promedio_asesinatos %>% filter(Var2 %in% c("2017", "2018", "2019","2020","2021"))
+df_frecuencias_promedio_asesinatos_2017 <- df_frecuencias_promedio_asesinatos_2017 %>% select(-Var3)
+media_asesinatos_ultimos_anos <- df_frecuencias_promedio_asesinatos_2017 %>% summarise(media_asesinatos = mean(Freq))
+print(media_asesinatos_ultimos_anos)
+
+
+
+
+
+
+
