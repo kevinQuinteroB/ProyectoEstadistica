@@ -1,0 +1,45 @@
+---
+title: "Delitos ocurridos en el Municipio de Bucaramanga durante los años 2010 al 2021"
+author: "Kevin Quintero - Jose Figueroa - Cristian Orduz"
+output: 
+  html_document: 
+    theme: yeti                # Opciones: default, journal, yeti, cerulean, darkly
+    toc: TRUE                     # incluir table of contents (true/false)
+    toc_float: TRUE               # toc flotante a la izquierda (true/false)
+    number_sections: TRUE         # numerar secciones y subsecciones (true/false)
+date: "`r Sys.Date()`"
+lang: es-ES
+---
+
+
+# Introduccion
+
+Este informe en centra en analizar la evolución, características y patrones de los detilos que han ocurrido en el municipio de Bucaramanga durante el período comprendido entre los años 2010 y 2021 (los cuales son los datos que se encuentran registrados oficialmente en los sitios web gubernametales). Este estudio busca entender la realidad de los bumangueses con respecto a la criminalidad que se vive en la ciudad del nororiente del país.
+
+Durante los últimos años, la ciudad ha experimentado unos grandes desafios en materia de la seguridad pública, llegando a presentar un cambio en la tasa de criminalidad. El análisi de los delitos registrados nos permite identificar tendencias, patrones y posibilidades que afectan a la seguridad de sus habitantes. Por esta razón se analizarán distintos tipos de delitos como homosidios, robos, delitos sexuales, entre otros que se puedan presentar. Esto nos permite brindar una visión completa sobre la situacion de la criminalidad en la ciudad. Para esto, nos ayudares de gráficas para facilitar la compresión y el detallamiento de la evolución de los delitos con respecto al tiempo.Pare tener una guia sobre el trayecto de esta investigacion, se estableció una pregunta general la cual es: ¿Que caracteristicas presenta la criminalidad y la inseguridad en la ciudad de Bucaramanga?
+
+
+# Metodología
+
+Este informe presenta un enfoque cuantitativo principalmente, esto nos permite realizar un analisis de la evolucion, caracteristicas y patrones de los delitos ocurridos en el municipio de Bucaramanga. La metodologia implementada para este proyecto se divide en: la recopilación de los datos, el procesamiento de los datos y el analisis de los resultados obtenidos.
+
+La unica fuente de recopilacion de los datos, es el sitio web oficial gubernamental, el cual proporcionó toda la informacion necesaria para realizar esta investigacion.
+
+Para tener un analisis estadistico correcto, se deben realizar ciertos pasos para tener los datos con los criterios correctos, como primer paso se debe realizar una limpiesa de los datos para eliminar datos duplicados, correccion de errores y manejo de valores faltantes. Luego, se requiere de una normalizacion para asegurarse que los datos se presentan coherencia en unidades y formatos. Una vez te tienen los datos ya preprocesados, se procede a realizar los analisis descriptivos, los cuales para este proyecto se presentaron la mayoria en forma de tablas o graficos para lograr resumir la informacion de manera clara y consisa, ademas se realizaron analisis de tendencias para lograr un analisis para identificar el comportamiento de los datos a lo largo del periodo de estudio asignado y predecir posibles comportamientos a futuro sobre los delitos en el area de Bucaramanga.
+
+# Resultados
+
+dsagagdfgadf
+
+# Discusión
+
+gfnksalnfkads
+
+# Conclusión
+
+hgdfkñsagma
+
+# Referencias
+
+gnlanfgkladf
+
