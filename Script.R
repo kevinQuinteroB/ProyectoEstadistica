@@ -3,6 +3,7 @@ library(moments)
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(sf)
 
 #Leemos el archivo ubicado en el github del proyecto
 data <- read.csv("https://raw.githubusercontent.com/kevinQuinteroB/ProyectoEstadistica/main/Delitos_ocurridos_en_el_Municipio_de_Bucaramanga_20240519.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -86,6 +87,27 @@ ggplot(df_armas_moviles_agresor_clean, aes(x = "", y = FRECUENCIA, fill = ARMAS_
             position = position_stack(vjust = 0.5), color = "black", size = 3.5)
 
 #2. Cuales son los sectores en los cuales se concentra una mayor cantidad de criminalidad
+tabla_frecuencias_barrios <- table(data_delincuentes$BARRIOS_HECHO)
+df_frecuencias_barrios <- as.data.frame(tabla_frecuencias_barrios)
+colnames(df_frecuencias_barrios) <- c("BARRIO", "FRECUENCIA")
+
+df_frecuencias_barrios_pequeño <- df_frecuencias_barrios %>% filter(FRECUENCIA <= 1746)
+otros_frecuencias_barrios_pequeño <- sum(df_frecuencias_barrios_pequeño$FRECUENCIA)
+df_frecuencias_barrios_pequeño <- data.frame(BARRIO = "Otros", FRECUENCIA = otros_frecuencias_barrios_pequeño)
+df_frecuencias_barrios_grande <- df_frecuencias_barrios %>% filter(FRECUENCIA >= 1746)
+df_frecuencias_barrios_final  <- bind_rows(df_frecuencias_barrios_grande, df_frecuencias_barrios_pequeño)
+
+ggplot(df_frecuencias_barrios_grande, aes(x = reorder(BARRIO, -FRECUENCIA), y = FRECUENCIA, fill = BARRIO)) +
+  geom_bar(stat = "identity", color = "black") +
+  scale_fill_brewer(palette = "Set3") +
+  labs(title = "Frecuencia de Delitos por Barrio",
+       x = "Barrio",
+       y = "Frecuencia",
+       fill = "Barrio") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_text(aes(label = FRECUENCIA), vjust = -0.5, color = "black", size = 3.5)
 
 #3. Como van los indices de delitos segun cada año?
 tabla_frecuencias_delitos_año <- table(data_delincuentes$ANO, data_delincuentes$CONDUCTA)
