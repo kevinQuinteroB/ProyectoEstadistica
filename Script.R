@@ -271,12 +271,28 @@ df_frecuencias_promedio_asesinatos <- as.data.frame(tabla_frecuencias_promedio_a
 df_frecuencias_promedio_asesinatos <- df_frecuencias_promedio_asesinatos %>% filter (Var3 == "LESIONES FATALES")
 df_frecuencias_promedio_asesinatos_2017 <- df_frecuencias_promedio_asesinatos %>% filter(Var2 %in% c("2017", "2018", "2019","2020","2021"))
 df_frecuencias_promedio_asesinatos_2017 <- df_frecuencias_promedio_asesinatos_2017 %>% select(-Var3)
-media_asesinatos_ultimos_anos <- df_frecuencias_promedio_asesinatos_2017 %>% summarise(media_asesinatos = mean(Freq))
+media_asesinatos_ultimos_anos <- df_frecuencias_promedio_asesinatos_2017 %>% summarise(media_asesinatos = sum(Freq))
+media_asesinatos_ultimos_anos <- media_asesinatos_ultimos_anos$media_asesinatos/(365*5)
 print(media_asesinatos_ultimos_anos)
 
 
+  # Asesinatos en todos los años
+tabla_frecuencias_promedio_asesinatos_todos_años <- table(data_delincuentes$ANO, data_delincuentes$CLASIFICACIONES.DELITO)
+df_frecuencias_promedio_asesinatos_todos_años <- as.data.frame(tabla_frecuencias_promedio_asesinatos_todos_años)
 
+df_frecuencias_promedio_asesinatos_todos_años <- df_frecuencias_promedio_asesinatos_todos_años %>% filter(Var2 == "LESIONES FATALES")
 
+colnames(df_frecuencias_promedio_asesinatos_todos_años) <- c("Año", "Delito", "Frecuencia")
 
+df_frecuencias_promedio_asesinatos_todos_años$Año <- as.numeric(as.character(df_frecuencias_promedio_asesinatos_todos_años$Año))
+
+ggplot(df_frecuencias_promedio_asesinatos_todos_años, aes(x = Año, y = Frecuencia)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red", size = 2) +
+  labs(title = "Tendencia de Asesinatos por Año (2017-2021)",
+       x = "Año",
+       y = "Total de Asesinatos") +
+  scale_x_continuous(breaks = seq(min(df_frecuencias_promedio_asesinatos_todos_años$Año), max(df_frecuencias_promedio_asesinatos_todos_años$Año), by = 1)) +
+  theme_minimal()
 
 
